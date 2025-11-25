@@ -63,31 +63,35 @@ export default function Dashboard() {
         <h1 className="mb-2">
           <b>Receptionist Name:</b> {"A name"}
         </h1>
-        <table class="border-separate border border-gray-400 mx-auto my-4">
+        <table className="border-separate border border-gray-400 mx-auto my-4">
           <thead>
             <tr>
-              <th class="border border-gray-300 bg-blue-400 p-3">
+              <th className="border border-gray-300 bg-blue-400 p-3">
                 Queue Number
               </th>
-              <th class="border border-gray-300 bg-blue-400 p-3">Reason</th>
-              <th class="border border-gray-300 bg-blue-400 p-3">
+              <th className="border border-gray-300 bg-blue-400 p-3">Reason</th>
+              <th className="border border-gray-300 bg-blue-400 p-3">
                 Preferred Time Slot
               </th>
-              <th class="border border-gray-300 bg-blue-400 p-3">
+              <th className="border border-gray-300 bg-blue-400 p-3">
                 Patient's Name
               </th>
-              <th class="border border-gray-300 bg-blue-400 p-3">Status</th>
+              <th className="border border-gray-300 bg-blue-400 p-3">Status</th>
             </tr>
           </thead>
           <tbody>
             {queues.map((element) => {
               return (
                 <tr>
-                  <td class="border border-gray-300 p-3">{element.id}</td>
-                  <td class="border border-gray-300 p-3">{element.reason}</td>
-                  <td class="border border-gray-300 p-3">{element.time}</td>
-                  <td class="border border-gray-300 p-3">{element.patient}</td>
-                  <td class="border border-gray-300 p-3">
+                  <td className="border border-gray-300 p-3">{element.id}</td>
+                  <td className="border border-gray-300 p-3">
+                    {element.reason}
+                  </td>
+                  <td className="border border-gray-300 p-3">{element.time}</td>
+                  <td className="border border-gray-300 p-3">
+                    {element.patient}
+                  </td>
+                  <td className="border border-gray-300 p-3">
                     {element.status === "done" ? (
                       "Done"
                     ) : (
