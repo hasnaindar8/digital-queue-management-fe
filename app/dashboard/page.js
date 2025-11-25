@@ -82,7 +82,7 @@ export default function Dashboard() {
           <tbody>
             {queues.map((element) => {
               return (
-                <tr>
+                <tr key={element.id}>
                   <td className="border border-gray-300 p-3">{element.id}</td>
                   <td className="border border-gray-300 p-3">
                     {element.reason}
