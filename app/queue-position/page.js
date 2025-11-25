@@ -6,19 +6,22 @@ export default function Page() {
   const [estWaitTime, setEstWaitTime] = useState("0 mins");
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
+    <div className="flex justify-center items-center py-16 px-4 bg-background text-foreground text-center">
+      <main className="w-full max-w-md bg-background shadow-lg rounded-2xl p-8 space-y-6 border border-neutral-100">
+        <h2 className="max-w-xs text-2xl font-semibold leading-10 tracking-tight">
           Where are you in the queue?
-        </h1>
+        </h2>
         <section>
-          <h2>Queue Position</h2>
+          <h2 className="">Queue Position</h2>
           {queuePosition || 1}
         </section>
         <section>
-          <h2>Estimated Time</h2>
+          <h2 >Estimated Time</h2>
           {estWaitTime || "2 mins"}
         </section>
+        <button className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light">
+          Leave the Queue
+        </button>
       </main>
     </div>
   );
