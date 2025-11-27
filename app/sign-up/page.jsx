@@ -6,10 +6,11 @@ export default function Signup() {
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const handleSubmit = () => {
-    console.log(firstName, surname, email, password, confirmPassword);
+    fetch( "http://localhost:8080/api/auth/signup", {method: "POST", headers: {"Content-Type": "application/json"}
+    , body: JSON.stringify({firstName, surname, email, phoneNumber, password})})
   };
   return (
     <>
@@ -51,6 +52,15 @@ export default function Signup() {
             />{" "}
           </div>
           <div className="grid grid-flow-row grid-cols-2">
+            <label className="text-middle content-center">Phone Number:</label>
+            <input
+              className="p-2 m-2 border-2 rounded-lg "
+              name="phone-number"
+              id="phone-number"
+              onChange={(e) => setPhoneNumber(e.target.value)}
+            />
+          </div>
+          <div className="grid grid-flow-row grid-cols-2">
             <label className="text-middle content-center">Password:</label>
             <input
               className="p-2 m-2 border-2 rounded-lg "
@@ -60,20 +70,11 @@ export default function Signup() {
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          <div className="grid grid-flow-row grid-cols-2">
-            <label className="text-middle content-center">Confirm Password:</label>
-            <input
-              className="p-2 m-2 border-2 rounded-lg "
-              name="confirm-password"
-              id="confirm-password"
-              type="password"
-              onChange={(e) => setConfirmPassword(e.target.value)}
-            />
-          </div>
+
           <button type="submit" className="bg-blue-400 rounded-lg p-3 m-2 hover:bg-blue-300 hover:cursor-pointer">
             Submit
           </button>
-          <Link className="text-center not-last:rounded-lg p-3 m-2 hover:text-blue-300" href="http://localhost:3000">
+          <Link className="text-center not-last:rounded-lg p-3 m-2 hover:text-blue-300" href="http://localhost:3000/login">
             Log-in{" "}
           </Link>
         </div>

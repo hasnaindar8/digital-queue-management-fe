@@ -5,8 +5,12 @@ import { useState } from "react";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = () => {
-    console.log(email, password);
+   const handleSubmit = () => {
+    fetch( "http://localhost:8080/api/auth/login", {method: "POST", headers: {"Content-Type": "application/json"}
+    , body: JSON.stringify({email, password})})
+    .then((res)=>{return res.json()})
+    .catch((err)=> {console.log(err)})
+
   };
   return (
     <>
