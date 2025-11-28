@@ -1,21 +1,15 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
+import Link from "next/link";
 
 export default function ReasonsDropdown() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [reasons, setReasons] = useState([]);
   const [selectedReason, setSelectedReason] = useState("");
   const [selectedTimeslot, setselectedTimeslot] = useState("");
-  const reasons = [
-    { id: 1, label: "Urgent medical issue" },
-    { id: 2, label: "Routine GP appointment" },
-    { id: 3, label: "Prescription request" },
-    { id: 4, label: "Test results" },
-    { id: 5, label: "Admin request (fit note, letters, forms)" },
-    { id: 6, label: "Referral or hospital follow-up" },
-    { id: 7, label: "Vaccinations / preventative care" },
-    { id: 8, label: "Medication review" },
-    { id: 9, label: "Mental health support" },
-    { id: 10, label: "Other" },
-  ];
+  const [isJoining, setIsJoining] = useState(false);
+
+  const loggedInUser = useContext(LoginContext);
 
   const timeslots = [
     { id: 1, label: "10:00 am - 10:15 am" },
@@ -24,10 +18,51 @@ export default function ReasonsDropdown() {
     { id: 4, label: "10:45 am - 11:00 am" },
   ];
 
+  useEffect(() => {
+    fetch("http://localhost:8080/api/reasons")
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data.reasons, "<<< reasons");
+        setReasons(data.reasons);
+      })
+      .catch((err) => {
+        console.err(err);
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }, []);
+
   function handleSubmit(event) {
     event.preventDefault();
+    setIsJoining(true);
     console.log("Reason id: ", selectedReason);
     console.log("timeslot id: ", selectedTimeslot);
+
+    fetch("http://localhost:8080/api/queue/join", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        user_id: loggedInUser.userId,
+        reason_id: selectedReason,
+      }),
+    })
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        console.log(data, "<<< response from join queue request");
+      })
+      .catch((err) => {
+        console.error(err);
+      })
+      .finally(() => {
+        setIsJoining(false);
+      });
   }
 
   return (
@@ -54,7 +89,7 @@ export default function ReasonsDropdown() {
             </option>
             {reasons.map((reason) => {
               return (
-                <option key={reason.id} value={reason.id}>
+                <option key={reason.reason_id} value={reason.reason_id}>
                   {reason.label}
                 </option>
               );
@@ -89,6 +124,7 @@ export default function ReasonsDropdown() {
         <button
           type="submit"
           className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light"
+          disabled={isJoining}
         >
           Join The Queue
         </button>
