@@ -1,15 +1,18 @@
 "use client";
 import { useState, useEffect, useContext } from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function ReasonsDropdown() {
+  const router = useRouter();
+
   const [isLoading, setIsLoading] = useState(true);
   const [reasons, setReasons] = useState([]);
   const [selectedReason, setSelectedReason] = useState("");
   const [selectedTimeslot, setselectedTimeslot] = useState("");
   const [isJoining, setIsJoining] = useState(false);
 
-  const loggedInUser = useContext(LoginContext);
+  // const loggedInUser = useContext(LoginContext);
+  // const userId = loggedInUser.userId
 
   const timeslots = [
     { id: 1, label: "10:00 am - 10:15 am" },
@@ -24,7 +27,6 @@ export default function ReasonsDropdown() {
         return res.json();
       })
       .then((data) => {
-        console.log(data.reasons, "<<< reasons");
         setReasons(data.reasons);
       })
       .catch((err) => {
@@ -52,10 +54,8 @@ export default function ReasonsDropdown() {
       }),
     })
       .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        console.log(data, "<<< response from join queue request");
+        if (!res.ok) throw new Error();
+        // router.push("/queue-position");
       })
       .catch((err) => {
         console.error(err);
