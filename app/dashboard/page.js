@@ -1,102 +1,119 @@
+"use client";
+
+import { useEffect, useState } from "react";
+import { fetchListOfQueue, deleteQueueEntry } from "../../api.js";
 export default function Dashboard() {
-  const queues = [
-    {
-      id: "1",
-      reason: "Fever",
-      patient: "Patient 1",
-      time: "10:00 am",
-      status: "done",
-    },
-    {
-      id: "2",
-      reason: "Shortness of breath",
-      patient: "Patient 2",
-      time: "10:30 am",
-      status: "in a queue",
-    },
-    {
-      id: "3",
-      reason: "Allergy",
-      patient: "Patient 3",
-      time: "10:45 am",
-      status: "in a queue",
-    },
-    {
-      id: "4",
-      reason: "Severe bleeding",
-      patient: "Patient 4",
-      time: "11:00 am",
-      status: "in a queue",
-    },
-    {
-      id: "5",
-      reason: "Dental help",
-      patient: "Patient 5",
-      time: "11:15 am",
-      status: "in a queue",
-    },
-    {
-      id: "6",
-      reason: "Minor injuries",
-      patient: "Patient 6",
-      time: "11:30 am",
-      status: "in a queue",
-    },
-    {
-      id: "7",
-      reason: "Burns and scalds",
-      patient: "Patient 7",
-      time: "11:45 am",
-      status: "in a queue",
-    },
-    {
-      id: "8",
-      reason: "Mental health",
-      patient: "Patient 8",
-      time: "12:00 am",
-      status: "in a queue",
-    },
-  ];
+  const [queue, setQueue] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  useEffect(() => {
+    fetchListOfQueue()
+      .then((data) => {
+        setQueue(data.queue);
+        setLoading(false);
+        setError(null);
+      })
+      .catch((error) => {
+        setLoading(false);
+        setError(error);
+        console.log(error);
+      });
+  }, []);
+
+  function removeQueueEntry(entryId) {
+    if (!confirm("Are you sure to delete this from the queue?")) return;
+    deleteQueueEntry(entryId).then(() => {
+      fetchListOfQueue()
+        .then((data) => {
+          setQueue(data.queue);
+          setLoading(false);
+          setError(null);
+        })
+        .catch((error) => {
+          setLoading(false);
+          setError(error);
+          console.log(error);
+        });
+    });
+  }
+
+  if (isLoading) return <p className="text-center mt-5 text-xl">Loading</p>;
+
   return (
     <>
-      <div className="flex flex-col border-2 border-blue-600 rounded-lg p-2 items-center w-3xl mx-auto mt-3">
+      <div className="flex flex-col border-2  rounded-lg p-2 items-center w-3xl mx-auto mt-3">
         <h1 className="mb-2">
-          <b>Receptionist Name:</b> {"A name"}
+          <b>Receptionist Name:</b> {user.firstName}
         </h1>
         <table className="border-separate border border-gray-400 mx-auto my-4">
           <thead>
             <tr>
-              <th className="border border-gray-300 bg-blue-400 p-3">
+              <th
+                className="border border-gray-300 p-3"
+                style={{ backgroundColor: "var(--brand-light)" }}
+              >
                 Queue Number
               </th>
-              <th className="border border-gray-300 bg-blue-400 p-3">Reason</th>
-              <th className="border border-gray-300 bg-blue-400 p-3">
-                Preferred Time Slot
+
+              <th
+                className="border border-gray-300 p-3"
+                style={{ backgroundColor: "var(--brand-light)" }}
+              >
+                Patient First Name
               </th>
-              <th className="border border-gray-300 bg-blue-400 p-3">
-                Patient's Name
+              <th
+                className="border border-gray-300 p-3"
+                style={{ backgroundColor: "var(--brand-light)" }}
+              >
+                Patient Surname
               </th>
-              <th className="border border-gray-300 bg-blue-400 p-3">Status</th>
+              <th
+                className="border border-gray-300 p-3"
+                style={{ backgroundColor: "var(--brand-light)" }}
+              >
+                Patient Phone No.
+              </th>
+              <th
+                className="border border-gray-300 p-3"
+                style={{ backgroundColor: "var(--brand-light)" }}
+              >
+                Reason
+              </th>
+              <th className="border border-gray-300 bg-blue-400 p-3">Action</th>
             </tr>
           </thead>
           <tbody>
-            {queues.map((element) => {
+            {queue.map((element) => {
               return (
-                <tr key={element.id}>
-                  <td className="border border-gray-300 p-3">{element.id}</td>
+                <tr key={element.entry_id}>
                   <td className="border border-gray-300 p-3">
-                    {element.reason}
+                    {element.entry_id}
                   </td>
-                  <td className="border border-gray-300 p-3">{element.time}</td>
+
                   <td className="border border-gray-300 p-3">
-                    {element.patient}
+                    {element.first_name}
+                  </td>
+                  <td className="border border-gray-300 p-3">
+                    {element.surname}
+                  </td>
+                  <td className="border border-gray-300 p-3">
+                    {element.phone_no}
+                  </td>
+                  <td className="border border-gray-300 p-3">
+                    {element.label}
                   </td>
                   <td className="border border-gray-300 p-3">
                     {element.status === "done" ? (
                       "Done"
                     ) : (
-                      <button className="bg-blue-300 p-2 rounded-3xl">
-                        In a queue
+                      <button
+                        className="bg-blue-300 p-2 rounded-lg hover:bg-blue-500"
+                        onClick={() => removeQueueEntry(element.entry_id)}
+                      >
+                        Delete
                       </button>
                     )}
                   </td>
