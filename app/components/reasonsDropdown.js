@@ -88,9 +88,9 @@ export default function ReasonsDropdown() {
 
         <button
           type="submit"
-          className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light"
+          className="w-full bg-brand hover:bg-brand-dark hover:cursor-pointer text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light"
         >
-          Join The Queue
+          Join the Queue
         </button>
       </form>
     </section>
