@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { fetchListOfQueue, deleteQueueEntry } from "../../api.js";
 import { useUser } from "context/UserContext.jsx";
+import Loader from "@/components/loading.js";
+
 export default function Dashboard() {
   const [queue, setQueue] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -46,11 +48,11 @@ export default function Dashboard() {
     });
   }
 
-  if (isLoading) return <p className="text-center mt-5 text-xl">Loading</p>;
+  if (isLoading) return <Loader />;
 
   return (
     <>
-      <div className="flex flex-col justify-center items-center py-16 px-4 bg-background text-foreground">
+      <section className="flex flex-col justify-center items-center py-16 px-4 bg-background text-foreground">
         <h1 className="mb-2">
           <b>Receptionist Name:</b>{" "}
           {capitalName(user.firstName) + " " + capitalName(user.surname)}
@@ -58,41 +60,26 @@ export default function Dashboard() {
         <table className="border-separate mx-auto my-4 w-3xl max-w-md bg-neutral-50 shadow-lg rounded-2xl p-6 border-neutral-100">
           <thead>
             <tr>
-              <th
-                className="border border-gray-300 p-3"
-                style={{ backgroundColor: "var(--brand-light)" }}
-              >
+              <th className="border border-gray-300 p-3 bg-[var(--brand-light)]">
                 Queue Number
               </th>
 
-              <th
-                className="border border-gray-300 p-3"
-                style={{ backgroundColor: "var(--brand-light)" }}
-              >
+              <th className="border border-gray-300 p-3 bg-[var(--brand-light)]">
                 Patient First Name
               </th>
               <th
-                className="border border-gray-300 p-3"
+                className="border border-gray-300 p-3 bg-[var(--brand-light)]"
                 style={{ backgroundColor: "var(--brand-light)" }}
               >
                 Patient Surname
               </th>
-              <th
-                className="border border-gray-300 p-3"
-                style={{ backgroundColor: "var(--brand-light)" }}
-              >
+              <th className="border border-gray-300 p-3 bg-[var(--brand-light)]">
                 Patient Phone No.
               </th>
-              <th
-                className="border border-gray-300 p-3"
-                style={{ backgroundColor: "var(--brand-light)" }}
-              >
+              <th className="border border-gray-300 p-3 bg-[var(--brand-light)]">
                 Reason
               </th>
-              <th
-                className="border border-gray-300 bg-blue-400 p-3"
-                style={{ backgroundColor: "var(--brand-light)" }}
-              >
+              <th className="border border-gray-300 bg-blue-400 p-3 bg-[var(--brand-light)]">
                 Action
               </th>
             </tr>
@@ -134,7 +121,7 @@ export default function Dashboard() {
             })}
           </tbody>
         </table>
-      </div>
+      </section>
     </>
   );
 }
