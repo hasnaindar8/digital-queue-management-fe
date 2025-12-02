@@ -1,6 +1,6 @@
 "use client";
 import { useState, useContext } from "react";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../contexts/userContext";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
@@ -8,18 +8,28 @@ export default function Login() {
   const { login } = useUser();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const handleSubmit = () => {
     fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     })
-      .then((res) => {
-        return res.json();
+      .then((response) => {
+        if (!response.ok) {
+          let errorMessage = "Something went wrong";
+          if (response.status === 401) {
+            errorMessage = "Registration process pending";
+          }
+
+          throw new Error(errorMessage);
+        }
+
+        return response.json();
       })
       .then(({ user }) => {
         login(user);
-        router.push("/");
+        return router.push("/join-queue");
       })
       .catch((err) => {
         console.log(err);
@@ -33,10 +43,14 @@ export default function Login() {
         handleSubmit();
       }}
     >
-      <h1 className="p-7 font-semibold text-center content-center text-xl">Login here</h1>
+      <h1 className="p-7 font-semibold text-center content-center text-xl">
+        Login here
+      </h1>
       <div className="grid-rows-2 items-center">
         <div className="grid grid-flow-row grid-cols-2 col grid-rows-1">
-          <label className="indent-20 text-middle content-center font-semibold">Email:</label>
+          <label className="indent-20 text-middle content-center font-semibold">
+            Email:
+          </label>
           <input
             type="email"
             className="p-2 m-1 border-2 rounded-lg text-left"
@@ -46,7 +60,9 @@ export default function Login() {
           />
         </div>
         <div className="grid grid-flow-row grid-cols-2 ">
-          <label className="indent-20 text-middle content-center font-semibold">Password:</label>
+          <label className="indent-20 text-middle content-center font-semibold">
+            Password:
+          </label>
           <input
             className="p-2 m-1 border-2 rounded-lg text-left"
             name="password"
