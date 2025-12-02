@@ -38,10 +38,10 @@ export default function Signup() {
   };
   return (
     <form
-      className="grid-cols border-2 border-blue-400 rounded-lg p-2 items-center w-150 mx-auto mt-3 max-w-full h-auto"
+      className=" font-semibold grid-cols border-2 border-neutral-100 bg-neutral-50 shadow-lg rounded-lg p-2 items-center w-150 mx-auto mt-3 max-w-full h-auto"
       onSubmit={handleSubmit}
     >
-      <h1 className="p-7 text-center">Sign-up here</h1>
+      <h2 className="p-7 text-center text-xl">Sign-up here</h2>
       <div className="grid grid-rows-7 items-center">
         <div className="grid grid-flow-row grid-cols-2">
           <label className="text-middle content-center">First Name:</label>
@@ -98,16 +98,16 @@ export default function Signup() {
 
         <button
           type="submit"
-          className="bg-blue-400 rounded-lg p-3 m-2 hover:bg-blue-300 hover:cursor-pointer"
+          className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm"
         >
           Submit
         </button>
-        <Link
+        <button
           className="text-center not-last:rounded-lg p-3 m-2 hover:text-blue-300"
-          href="/login"
+          onClick={()=>{router.push("/login")}}
         >
           Log-in{" "}
-        </Link>
+        </button>
       </div>
     </form>
   );
