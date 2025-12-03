@@ -2,50 +2,60 @@
 
 import { useUser } from "./userContext";
 import { io } from "socket.io-client";
-import { useContext, createContext, useRef, useEffect } from "react";
+import { useContext, createContext, useEffect, useState } from "react";
 
 const SocketContext = createContext(null);
 
 export const SocketProvider = ({ children }) => {
   const { user } = useUser();
-  const socketRef = useRef(null);
+  const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    console.log("User object in socket's useEffect", user);
-    if (!user) return;
-
-    if (!socketRef.current) {
-      socketRef.current = io("http://localhost:8080", {
-        auth: { token: { id: user.userId, type: user.type } },
-        transports: ["websocket"],
-      });
+    if (!user) {
+      if (socket) {
+        socket.disconnect();
+        setSocket(null);
+      }
+      return;
     }
 
-    socketRef.current.on("connect", () => {
-      console.log(
-        `Connected socket id(${socketRef.current.id}) for user id (${user.userId})`
-      );
+    if (socket && socket.connected && socket.auth?.token?.id === user.userId) {
+      return;
+    }
+
+    if (socket) {
+      socket.disconnect();
+      setSocket(null);
+    }
+
+    const newSocket = io("http://localhost:8080", {
+      auth: { token: { id: user.userId, type: user.type } },
+      transports: ["websocket"],
     });
 
-    console.log("socket id socket's useEffect", socketRef.current.id);
-
-    socketRef.current.on("disconnect", () => {
-      console.log(
-        `Disconnected socket id (${socketRef.current?.id}) for user id (${user.userId})`
-      );
+    newSocket.on("connect", () => {
+      console.log("SOCKET CONNECTED", newSocket.id, "for user", user.userId);
     });
+
+    newSocket.on("connect_error", (err) => {
+      console.error("SOCKET CONNECT ERROR:", err?.message || err);
+    });
+
+    newSocket.on("disconnect", (reason) => {
+      console.log("SOCKET DISCONNECTED", newSocket.id, "reason:", reason);
+    });
+
+    setSocket(newSocket);
 
     return () => {
-      console.log("cleanup function running...");
-      socketRef.current.disconnect();
-      socketRef.current = null;
+      newSocket.off("connect");
+      newSocket.off("connect_error");
+      newSocket.off("disconnect");
     };
   }, [user]);
 
   return (
-    <SocketContext.Provider value={socketRef.current}>
-      {children}
-    </SocketContext.Provider>
+    <SocketContext.Provider value={socket}>{children}</SocketContext.Provider>
   );
 };
 
