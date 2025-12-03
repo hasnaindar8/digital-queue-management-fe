@@ -50,7 +50,7 @@ export default function JoinQueueForm() {
     })
       .then((res) => {
         if (!res.ok) throw new Error("Something went wrong");
-        router.push("/test");
+        router.push("/queue-position");
       })
       .catch((err) => {
         console.error(err);
