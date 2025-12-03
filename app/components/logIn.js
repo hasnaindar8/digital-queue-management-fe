@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { useUser } from "../context/UserContext";
+import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
 
 export default function Login() {
