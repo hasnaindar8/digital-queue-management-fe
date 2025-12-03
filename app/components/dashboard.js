@@ -31,7 +31,7 @@ export default function Dashboard() {
     return name.slice(0, 1).toUpperCase() + name.slice(1);
   }
 
-  function removeQueueEntry(entryId) {
+  function removeQueueEntry(userId) {
     if (!confirm("Are you sure to delete this from the queue?")) return;
     deleteQueueEntry(entryId).then(() => {
       fetchListOfQueue()
@@ -118,7 +118,7 @@ export default function Dashboard() {
                       ) : (
                         <button
                           className="h-auto w-32 p-2 rounded-lg bg-brand text-background hover:bg-brand-dark "
-                          onClick={() => removeQueueEntry(element.entry_id)}
+                          onClick={() => removeQueueEntry(element.user_id)}
                         >
                           Mark as Served
                         </button>
