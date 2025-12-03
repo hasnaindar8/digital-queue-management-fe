@@ -1,4 +1,4 @@
-export function fetchListOfQueue(articleId) {
+export function fetchListOfQueue() {
   return fetch(`http://localhost:8080/api/queue/`).then((res) => {
     if (!res.ok) {
       throw new Error("Cannot get list of queue");
@@ -6,8 +6,8 @@ export function fetchListOfQueue(articleId) {
     return res.json();
   });
 }
-export function deleteQueueEntry(entryId) {
-  return fetch(`http://localhost:8080/api/queue/${entryId}`, {
+export function deleteQueueEntry(userId) {
+  return fetch(`http://localhost:8080/api/queue/${userId}`, {
     method: "DELETE",
   }).then((res) => {
     if (!res.ok) {
