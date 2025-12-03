@@ -61,15 +61,20 @@ export default function JoinQueueForm() {
   }
 
   return (
-    <section className="flex justify-center items-center py-16 px-4 bg-background text-foreground">
+    <section className="min-h-[calc(100vh-150px)] flex items-center justify-center px-4 py-12 bg-background text-foreground">
       <form
-        className="w-full max-w-md bg-neutral-50 shadow-lg rounded-2xl p-8 space-y-6 border border-neutral-100"
+        className="w-full max-w-md bg-neutral-50 shadow-xl rounded-2xl p-8 space-y-6 border border-neutral-100"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-xl font-semibold text-center">Join the GP Queue</h2>
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-2">
+          Join the GP Queue
+        </h2>
 
         <div className="flex flex-col space-y-2">
-          <label htmlFor="reasons-dropdown" className="font-medium">
+          <label
+            htmlFor="reasons-dropdown"
+            className="font-medium text-sm md:text-base"
+          >
             Select your reason to join the queue
           </label>
 
@@ -77,7 +82,7 @@ export default function JoinQueueForm() {
             id="reasons-dropdown"
             value={selectedReason}
             onChange={(e) => setSelectedReason(Number(e.target.value))}
-            className="border border-neutral-300 rounded-xl p-3 bg-white text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all"
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
           >
             <option value="" disabled>
               Select a reason...
@@ -94,10 +99,10 @@ export default function JoinQueueForm() {
 
         <button
           type="submit"
-          className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light"
+          className="w-full bg-brand hover:bg-brand-dark text-brand-contrast font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light text-base"
           disabled={isJoining}
         >
-          Join The Queue
+          Join the Queue
         </button>
       </form>
     </section>
