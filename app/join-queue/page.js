@@ -1,4 +1,4 @@
-import ReasonsDropdown from "@/components/reasonsDropdown";
+import JoinQueueForm from "@/components/joinQueueForm";
 export default function Page() {
-  return <ReasonsDropdown />;
+  return <JoinQueueForm />;
 }

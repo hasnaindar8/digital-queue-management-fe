@@ -2,7 +2,7 @@
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
-export default function Signup() {
+export default function SignupForm() {
   const router = useRouter();
   const [firstName, setFirstName] = useState("");
   const [surname, setSurname] = useState("");
