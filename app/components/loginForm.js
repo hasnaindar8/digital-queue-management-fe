@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function LoginForm() {
   const router = useRouter();
@@ -9,14 +10,17 @@ export default function LoginForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = () => {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
     fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     })
-      .then((res) => {
-        return res.json();
+      .then((response) => {
+        if (!response.ok) throw new Error("Something went wrong");
+        return response.json();
       })
       .then(({ user }) => {
         login(user);
@@ -27,59 +31,62 @@ export default function LoginForm() {
         }
       })
       .catch((err) => {
-        console.log(err);
+        console.log(err.message);
       });
   };
 
   return (
-    <section className="flex justify-center items-center py-16 px-4 bg-background text-foreground">
+    <section className="min-h-[calc(100vh-150px)] flex items-center justify-center px-4 py-12 bg-background text-foreground">
       <form
-        className="w-full max-w-md bg-neutral-50 shadow-lg rounded-2xl p-8 space-y-6 border border-neutral-100 content-center"
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleSubmit();
-        }}
+        className="w-full max-w-md bg-neutral-50 shadow-xl rounded-2xl p-8 space-y-6 border border-neutral-100"
+        onSubmit={handleSubmit}
       >
-        <h1 className="text-xl font-semibold text-center">Log in Here</h1>
+        <h2 className="text-xl font-semibold text-center">
+          Welcome Back
+          <br />
+          <span className="text-neutral-600 font-medium text-sm md:text-base">
+            Please enter your details
+          </span>
+        </h2>
 
-        <div className="flex flex-col font-medium">
-          <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr] grid-flow-row font-semibold">
-            <label className="text-middle content-center">Email:</label>
-            <input
-              type="email"
-              className="p-2 m-2 mr-0 ml-0 border border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all text-left"
-              name="email"
-              id="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <label className="text-middle content-center">Password:</label>
-            <input
-              className="p-2 m-2 mb-0 mr-0 ml-0 border  border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all text-left"
-              name="password"
-              id="password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className="space-y-2">
-          <button
-            type="submit"
-            className="w-full bg-brand hover:bg-brand-dark hover:cursor-pointer text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light"
+        <div className="flex flex-col space-y-2">
+          <label htmlFor="email" className="font-medium text-sm md:text-base">
+            Email address
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
+          <label
+            htmlFor="password"
+            className="font-medium text-sm md:text-base"
           >
-            Log in
-          </button>
-          <p>Don't have an account?</p>
-          <button
-            type="button"
-            className="w-full bg-brand hover:bg-brand-dark hover:cursor-pointer text-white font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light"
-            onClick={() => {
-              router.push("/signup");
-            }}
-          >
-            Create an Account
-          </button>
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
         </div>
+
+        <button
+          type="submit"
+          className="w-full bg-brand hover:bg-brand-dark hover:cursor-pointer text-brand-contrast font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light text-base"
+        >
+          Sign in
+        </button>
+        <p>
+          Don't have an account?{" "}
+          <Link href="/signup">
+            <span className="text-brand">Sign up</span>
+          </Link>
+        </p>
       </form>
     </section>
   );

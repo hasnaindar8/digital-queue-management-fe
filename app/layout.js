@@ -31,8 +31,8 @@ export default function RootLayout({ children }) {
           <main className="flex-1">
             <SocketProvider>{children}</SocketProvider>
           </main>
-          <Footer />
         </UserProvider>
+        <Footer />
       </body>
     </html>
   );
