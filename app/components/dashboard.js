@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { fetchListOfQueue, deleteQueueEntry } from "../../api.js";
 import { useUser } from "context/UserContext.jsx";
 import Loader from "@/components/loading.js";
-import Link from "next/link.js";
 
 export default function Dashboard() {
   const [queue, setQueue] = useState([]);
@@ -53,14 +52,15 @@ export default function Dashboard() {
 
   return (
     <>
-      <section className="flex flex-col justify-center items-center py-16 px-4 bg-background text-foreground">
-        <h1 className="mb-2">
+      <section className="flex flex-col py-16 px-4 bg-background text-foreground">
+        <h1 className="mb-2 text-center">
           <b>Receptionist Name:</b>{" "}
           {capitalName(user.firstName) + " " + capitalName(user.surname)}
         </h1>
         {/* <Link href="/login">Sign out</Link> */}
-        <div className="flex flex-wrap overflow-x-auto ">
-          <table className="table-auto border-separate mx-auto my-4 w-3xl max-w-md bg-neutral-50 shadow-lg rounded-2xl p-6 border-neutral-100">
+
+        <div className="overflow-x-auto">
+          <table className="table-auto border-separate mx-auto my-4 w-2xl bg-neutral-50 shadow-lg rounded-2xl p-6 border-neutral-100">
             <thead>
               <tr>
                 <th className="border border-gray-300 p-3 bg-brand text-background rounded-tl-2xl font-semibold">
