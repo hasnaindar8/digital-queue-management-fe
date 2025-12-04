@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import Link from "next/link";
 
 export default function SignupForm() {
   const router = useRouter();
@@ -38,74 +39,100 @@ export default function SignupForm() {
   };
 
   return (
-    <section className="flex justify-center items-center py-16 px-4 bg-background text-foreground">
+    <section className="min-h-[calc(100vh-150px)] flex items-center justify-center px-4 py-12 bg-background text-foreground">
       <form
-        className="w-full max-w-md bg-neutral-50 shadow-lg rounded-2xl p-6 space-y-6 border border-neutral-100"
+        className="w-full max-w-md bg-neutral-50 shadow-xl rounded-2xl p-8 space-y-6 border border-neutral-100"
         onSubmit={handleSubmit}
       >
-        <h2 className="text-xl font-semibold text-center">Sign up Here</h2>
-        <div className="flex flex-col space-y-2 ">
-          <div className="grid grid-cols-1 sm:grid-cols-[1fr_1fr] grid-flow-row font-semibold">
-            <label className="text-middle content-center">First Name:</label>
-            <input
-              className="p-2 m-2 ml-0 mr-0 border border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all"
-              name="first-name"
-              id="first-name"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-            <label className="text-middle content-center">Surname:</label>
-            <input
-              className="p-2 m-2 ml-0 mr-0 border border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all"
-              name="surname"
-              id="surname"
-              value={surname}
-              onChange={(e) => setSurname(e.target.value)}
-            />
-            <label className="text-middle content-center">Email:</label>
-            <input
-              type="email"
-              className="p-2 m-2 ml-0 mr-0 border border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all"
-              name="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />{" "}
-            <label className="text-middle content-center">Phone Number:</label>
-            <input
-              className="p-2 m-2 ml-0 mr-0 border border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all"
-              name="phone-number"
-              id="phone-number"
-              value={phoneNumber}
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-            <label className="text-middle content-center">Password:</label>
-            <input
-              className="p-2 m-2 ml-0 mr-0 border border-neutral-300 rounded-xl font-normal focus:outline-none focus:ring-1 focus:ring-brand focus:border-brand transition-all"
-              name="password"
-              id="password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-          </div>
+        <h2 className="text-xl font-semibold text-center">
+          Sign up now
+          <br />
+          <span className="text-neutral-600 font-medium text-sm md:text-base">
+            Create your account
+          </span>
+        </h2>
 
-          <button
-            type="submit"
-            className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm hover:cursor-pointer"
+        <div className="flex flex-col space-y-2">
+          <label
+            htmlFor="firstName"
+            className="font-medium text-sm md:text-base"
           >
-            Submit
-          </button>
-          <p>Already have an account?</p>
-          <button
-            className="w-full bg-brand hover:bg-brand-dark text-white font-semibold py-3 rounded-xl transition-all shadow-sm hover:cursor-pointer"
-            onClick={() => {
-              router.push("/login");
-            }}
+            First name
+          </label>
+          <input
+            id="firstName"
+            type="text"
+            value={firstName}
+            placeholder="First name"
+            onChange={(e) => setFirstName(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
+          <label htmlFor="surname" className="font-medium text-sm md:text-base">
+            Surname
+          </label>
+          <input
+            id="surname"
+            type="text"
+            value={surname}
+            placeholder="Surname"
+            onChange={(e) => setSurname(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
+          <label htmlFor="email" className="font-medium text-sm md:text-base">
+            Email address
+          </label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            placeholder="Email address"
+            onChange={(e) => setEmail(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
+          <label
+            htmlFor="phoneNumber"
+            className="font-medium text-sm md:text-base"
           >
-            Log in{" "}
-          </button>
+            Phone number
+          </label>
+          <input
+            id="phoneNumber"
+            type="text"
+            value={phoneNumber}
+            placeholder="Phone number"
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
+          <label
+            htmlFor="password"
+            className="font-medium text-sm md:text-base"
+          >
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            className="border border-neutral-300 rounded-xl p-3 bg-background text-neutral-900 focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand transition-all text-sm md:text-base"
+          />
         </div>
+
+        <button
+          type="submit"
+          className="w-full bg-brand hover:bg-brand-dark hover:cursor-pointer text-brand-contrast font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light text-base"
+        >
+          Sign up
+        </button>
+        <p>
+          Already have an account?{" "}
+          <Link href="/login">
+            <span className="text-brand underline decoration-solid">
+              Sign in
+            </span>
+          </Link>
+        </p>
       </form>
     </section>
   );

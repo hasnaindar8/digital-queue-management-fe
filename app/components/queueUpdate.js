@@ -63,7 +63,7 @@ export default function QueueUpdate() {
   return (
     <section className="min-h-[calc(100vh-150px)] flex items-center justify-center px-4 py-12 bg-background text-foreground">
       <div className="w-full max-w-md bg-neutral-50 shadow-xl rounded-2xl p-8 space-y-6 border border-neutral-100">
-        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-2">
+        <h2 className="text-2xl md:text-3xl font-semibold text-center mb-2 p-6">
           Live Queue Update
         </h2>
 
