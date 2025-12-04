@@ -128,7 +128,9 @@ export default function SignupForm() {
         <p>
           Already have an account?{" "}
           <Link href="/login">
-            <span className="text-brand">Sign in</span>
+            <span className="text-brand underline decoration-solid">
+              Sign in
+            </span>
           </Link>
         </p>
       </form>

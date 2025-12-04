@@ -84,7 +84,9 @@ export default function LoginForm() {
         <p>
           Don't have an account?{" "}
           <Link href="/signup">
-            <span className="text-brand">Sign up</span>
+            <span className="text-brand underline decoration-solid">
+              Sign up
+            </span>
           </Link>
         </p>
       </form>
