@@ -77,7 +77,12 @@ export default function QueueUpdate() {
           </h3>
 
           <h3 className="font-medium text-sm md:text-base">
-            <strong>Estimated Waiting Time:</strong> {queueUpdate.estimatedWait}
+            <strong>Estimated Waiting Time:</strong>{" "}
+            {(queueUpdate.estimatedWait - (queueUpdate.estimatedWait % 60)) /
+              60}{" "}
+            mins{" "}
+            {queueUpdate.estimatedWait % 60 !== 0 &&
+              `${queueUpdate.estimatedWait % 60} secs`}
           </h3>
         </div>
 
