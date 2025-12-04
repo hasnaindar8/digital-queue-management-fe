@@ -2,11 +2,15 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useUser } from "@/contexts/userContext";
+import Loader from "./loading";
+import Error from "./errors";
 
 export default function JoinQueueForm() {
   const router = useRouter();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [message, setMessage] = useState("the join queue page");
   const [reasons, setReasons] = useState([]);
   const [selectedReason, setSelectedReason] = useState("");
   const [isJoining, setIsJoining] = useState(false);
@@ -16,12 +20,15 @@ export default function JoinQueueForm() {
   useEffect(() => {
     fetch("http://localhost:8080/api/reasons")
       .then((res) => {
+        if (!res.ok) throw new Error("Cannot get list of reasons");
         return res.json();
       })
       .then((data) => {
         setReasons(data.reasons);
+        setMessage(null);
       })
       .catch((err) => {
+        setError(err);
         console.err(err);
       })
       .finally(() => {
@@ -37,6 +44,7 @@ export default function JoinQueueForm() {
     }
 
     setIsJoining(true);
+    setMessage("your request to join the queue");
 
     fetch("http://localhost:8080/api/queue/join", {
       method: "POST",
@@ -51,14 +59,19 @@ export default function JoinQueueForm() {
       .then((res) => {
         if (!res.ok) throw new Error("Something went wrong");
         router.push("/queue-position");
+        setMessage(null);
       })
       .catch((err) => {
+        setError(err);
         console.error(err);
       })
       .finally(() => {
         setIsJoining(false);
       });
   }
+
+  if (isJoining || isLoading) return <Loader message={message} />;
+  if (error) return <Error message={message} />;
 
   return (
     <section className="min-h-[calc(100vh-150px)] flex items-center justify-center px-4 py-12 bg-background text-foreground">

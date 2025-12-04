@@ -2,12 +2,14 @@
 
 import { useEffect, useState } from "react";
 import Loader from "@/components/loading.js";
+import Error from "./errors";
 import { useUser } from "@/contexts/userContext.js";
 import { useSocket } from "@/contexts/socketContext.js";
 
 export default function Dashboard() {
   const { user } = useUser();
   const socket = useSocket();
+  const message = "the queue dashboard";
 
   const [queue, setQueue] = useState([]);
   const [isLoading, setLoading] = useState(true);
@@ -97,9 +99,8 @@ export default function Dashboard() {
     });
   }
 
-  if (!user) return <Loader />;
-
-  if (isLoading) return <Loader />;
+  if (!user || isLoading) return <Loader message={message} />;
+  if (error) return <Error message={message} />;
 
   return (
     <>

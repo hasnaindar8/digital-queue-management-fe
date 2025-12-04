@@ -2,20 +2,27 @@
 import { useState } from "react";
 import { useUser } from "@/contexts/userContext";
 import { useRouter } from "next/navigation";
+import Loader from "./loading";
+import Error from "./errors";
 
 export default function LoginForm() {
   const router = useRouter();
   const { login } = useUser();
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
+  const [error, setError] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = () => {
+    setIsLoggingIn(true);
+
     fetch("http://localhost:8080/api/auth/login", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password }),
     })
       .then((res) => {
+        if (!res.ok) throw new Error("Unable to log in");
         return res.json();
       })
       .then(({ user }) => {
@@ -28,8 +35,14 @@ export default function LoginForm() {
       })
       .catch((err) => {
         console.log(err);
+      })
+      .finally(() => {
+        setIsLoggingIn(false);
       });
   };
+
+  if (isLoggingIn) return <Loader />;
+  if (error) return <Error message={message} />;
 
   return (
     <section className="flex justify-center items-center py-16 px-4 bg-background text-foreground">
