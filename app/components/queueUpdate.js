@@ -51,7 +51,7 @@ export default function QueueUpdate() {
     socket.on("queue:update", handleUpdate);
 
     return () => {
-      socket.off("queue:update");
+      socket.off("queue:update", handleUpdate);
       socket.off("connect");
     };
   }, [socket]);
