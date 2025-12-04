@@ -26,7 +26,7 @@ export default function Dashboard() {
       });
   }, []);
 
-  function capitalName(name) {
+  function capitaliseName(name) {
     return name.slice(0, 1).toUpperCase() + name.slice(1);
   }
 
@@ -57,7 +57,6 @@ export default function Dashboard() {
           <b>Receptionist Name:</b>{" "}
           {capitalName(user.firstName) + " " + capitalName(user.surname)}
         </h1>
-        {/* <Link href="/login">Sign out</Link> */}
 
         <div className="overflow-x-auto">
           <table className="table-auto border-separate mx-auto my-4 w-2xl bg-neutral-50 shadow-lg rounded-2xl p-6 border-neutral-100">
