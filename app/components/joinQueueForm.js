@@ -99,7 +99,7 @@ export default function JoinQueueForm() {
 
         <button
           type="submit"
-          className="w-full bg-brand hover:bg-brand-dark text-brand-contrast font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light text-base"
+          className="w-full bg-brand hover:bg-brand-dark hover:cursor-pointer text-brand-contrast font-semibold py-3 rounded-xl transition-all shadow-sm focus:ring-2 focus:ring-brand-light text-base"
           disabled={isJoining}
         >
           Join the Queue
