@@ -1,4 +1,5 @@
 "use client";
+
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -12,6 +13,7 @@ export default function SignupForm() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     return fetch("http://localhost:8080/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
