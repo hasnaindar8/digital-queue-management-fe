@@ -3,7 +3,7 @@
 export default function Error({ message }) {
   return (
     <section className="flex justify-center items-center py-16 px-4 bg-background text-foreground">
-      <div className="w-full max-w-md bg-neutral-50 shadow-lg rounded-2xl p-8 border border-neutral-100 font-semibold text-center">
+      <div className="w-full max-w-md rounded-2xl p-8 font-semibold text-center">
         <h1 className="font-bold">Something went wrong!</h1>
         <svg
           xmlns="http://www.w3.org/2000/svg"
