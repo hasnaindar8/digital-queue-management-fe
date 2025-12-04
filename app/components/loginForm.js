@@ -20,7 +20,11 @@ export default function LoginForm() {
       })
       .then(({ user }) => {
         login(user);
-        router.push("/join-queue");
+        if (user.type === "patient") {
+          router.push("/join-queue");
+        } else {
+          router.push("/dashboard");
+        }
       })
       .catch((err) => {
         console.log(err);
