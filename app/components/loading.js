@@ -2,7 +2,7 @@
 
 export default function Loader({ message }) {
   return (
-    <section className="flex justify-center items-center py-16 px-4 bg-background text-foreground">
+    <section className="flex justify-center items-center py-16 px-4 bg-background text-brand-dark">
       <div className="w-full max-w-md rounded-2xl p-8 space-y-6 font-semibold text-center">
         <h2>Loading{message && " " + message}...</h2>
         <div
