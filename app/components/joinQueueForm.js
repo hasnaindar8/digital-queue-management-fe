@@ -14,7 +14,7 @@ export default function JoinQueueForm() {
   const { user } = useUser();
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/reasons")
+    fetch("https://digital-queue-management-be.onrender.com/api/reasons")
       .then((res) => {
         return res.json();
       })
@@ -38,7 +38,7 @@ export default function JoinQueueForm() {
 
     setIsJoining(true);
 
-    fetch("http://localhost:8080/api/queue/join", {
+    fetch("https://digital-queue-management-be.onrender.com/api/queue/join", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

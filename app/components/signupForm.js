@@ -15,7 +15,7 @@ export default function SignupForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    return fetch("http://localhost:8080/api/auth/signup", {
+    return fetch("https://digital-queue-management-be.onrender.com/api/auth/signup", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -28,7 +28,7 @@ export const SocketProvider = ({ children }) => {
       setSocket(null);
     }
 
-    const newSocket = io("http://localhost:8080", {
+    const newSocket = io("https://digital-queue-management-be.onrender.com", {
       auth: { token: { id: user.userId, type: user.type } },
       transports: ["websocket"],
     });

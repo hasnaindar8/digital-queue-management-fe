@@ -16,7 +16,7 @@ export default function QueueUpdate() {
   function handleClick() {
     setIsLeaving(true);
 
-    fetch(`http://localhost:8080/api/queue/${user?.userId}`, {
+    fetch(`https://digital-queue-management-be.onrender.com/api/queue/${user?.userId}`, {
       method: "DELETE",
     })
       .then((response) => {

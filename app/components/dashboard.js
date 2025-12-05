@@ -15,7 +15,9 @@ export default function Dashboard() {
   const [queueLength, setQueueLength] = useState(null);
 
   function fetchListOfQueue() {
-    return fetch(`http://localhost:8080/api/queue/`).then((res) => {
+    return fetch(
+      `https://digital-queue-management-be.onrender.com/api/queue/`
+    ).then((res) => {
       if (!res.ok) {
         throw new Error("Cannot get list of queue");
       }
@@ -24,9 +26,12 @@ export default function Dashboard() {
   }
 
   function deleteQueueEntry(userId) {
-    return fetch(`http://localhost:8080/api/queue/${userId}`, {
-      method: "DELETE",
-    }).then((res) => {
+    return fetch(
+      `https://digital-queue-management-be.onrender.com/api/queue/${userId}`,
+      {
+        method: "DELETE",
+      }
+    ).then((res) => {
       if (!res.ok) {
         throw new Error("Cannot delete from the queue");
       }
