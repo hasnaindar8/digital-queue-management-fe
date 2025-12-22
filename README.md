@@ -1,35 +1,86 @@
-# Digital Queue Management — Frontend
+# GP Digital Queue Management System Frontend
 
-A modern, responsive frontend application for managing customer queues, built with **Next.js 16**, **React 19**, and **TailwindCSS 4**.  
-This application provides a seamless interface for customers and staff to interact with digital queueing systems, ticketing, and live queue updates.
-
----
-
-### Features
-
-- 📱 Responsive UI using TailwindCSS 4
-- ⚛️ React 19 with modern rendering
-- ⚡ Next.js 16 App Router & Server Components
-- 🎨 Customizable components and layouts
-- 🧭 Client-side navigation and dynamic pages
-- 🔐 Supports API integration for queue data
-- 🛠️ Developer-friendly setup: ESLint, React Compiler, PostCSS
+### Live Version
+Hosted version available here:  
+- [GP Digital Queue Management System](https://digital-queue-management.netlify.app/)
 
 ---
 
-### Tech Stack
+## 📌 Project Summary
 
-| Layer     | Technology               |
-| --------- | ------------------------ |
-| Framework | Next.js 16               |
-| Library   | React 19                 |
-| Styling   | TailwindCSS 4, PostCSS   |
-| Language  | JavaScript               |
-| Tooling   | ESLint 9, React Compiler |
+Digital Queue Management System is a responsive frontend application to replace traditional UK GP phone queues with a real-time digital queue system. Patients can join a virtual queue, track their position and estimated waiting time, and receive updates without waiting on hold. Receptionists can manage the queue live through a dashboard. The application connects to the dedicated backend API and WebSocket server [(GP Digital Queue System Backend)](https://github.com/hasnaindar8/digital-queue-management-be) to provide live queue updates and seamless communication.
+
+### Problem Statement
+
+UK GP practices often rely on phone-based appointment systems where:
+
+Patients wait 20–45 minutes on hold
+
+Phone lines are overloaded at peak hours
+
+Receptionists are overwhelmed by repeated calls
+
+Patients miss appointments or give up trying to contact their GP
+
+### Solution
+
+This project introduces a Digital Queue System that allows:
+
+Patients to join a queue online
+
+Real-time updates on queue position and ETA
+
+Receptionists to manage requests efficiently
+
+Reduced phone congestion and staff stress
+
+**Phone queue = waiting on hold**  
+**Digital queue = waiting without calling**
+
+✅ Current supported functionality includes:
+
+### Patient
+
+- Join GP queue digitally
+
+- Select reason for contact (UK GP-specific reasons)
+
+- View live queue position
+
+- See estimated waiting time (ETA)
+
+- Receive real-time updates via WebSockets
+
+### Receptionist
+
+- Live dashboard showing queue
+
+- View patient details and reasons
+
+- Mark patients as served
+
+- Queue updates broadcast instantly
+
+## Tech Stack
+
+| Feature | Details |
+|--------|---------|
+| Framework | Next.js (JavaScript) |
+| Library | React |
+| Language | JavaScript |
+| Styling | Tailwind CSS |
+| Routing | Next.js App Router |
+| HTTP Requests | Fetch |
+| Real-Time Communication | Socket.IO |
+| State Management | React Hooks |
 
 ---
 
-### Installation
+## Getting Started Locally
+
+Follow these steps to setup the project on your machine.
+
+### ✅ 1. Clone the repository
 
 Clone the repository:
 
@@ -38,52 +89,42 @@ git clone https://github.com/hasnaindar8/digital-queue-management-fe.git
 cd digital-queue-management-fe
 ```
 
----
+### ✅ 2. Install dependencies
 
-### Install dependencies:
+If you don't have pnpm installed:
 
-npm install
-
----
-
-### Running the Project:
-
----
-
-npm run dev
-
----
-
-### Project Structure
-
-```text
-.
-├── README.md
-├── app
-│ ├── components
-│ │ ├── loginForm.js
-│ │ ├── reasonsDropdown.js
-│ │ └── signupForm.js
-│ ├── context
-│ │ └── UserContext.jsx
-│ ├── globals.css
-│ ├── join-queue
-│ │ └── page.js
-│ ├── layout.js
-│ ├── login
-│ │ └── page.js
-│ └── signup
-│ └── page.js
-├── eslint.config.mjs
-├── jsconfig.json
-├── next.config.mjs
-├── package-lock.json
-├── package.json
-├── pnpm-lock.yaml
-└── postcss.config.mjs
+```bash
+npm install -g pnpm
 ```
 
-License
+```bash
+pnpm install
+```
+### ✅ 3. Start the server
 
-This project can use your preferred license.
-(If none provided, defaults to “All rights reserved”.)
+```bash
+pnpm run dev
+```
+Server should be running at:
+
+```
+http://localhost:3000/
+```
+---
+
+## Minimum Requirements
+
+| Dependency | Version |
+|-----------|---------|
+| Node.js | **v18.x or higher recommended** |
+| pnpm | **v10.x or higher recommended** |
+
+Check your versions:
+
+```bash
+node -v
+pnpm -v
+```
+## Contributions
+
+Contributions are welcome! Please open an issue or submit a pull request with a clear description of your changes.
